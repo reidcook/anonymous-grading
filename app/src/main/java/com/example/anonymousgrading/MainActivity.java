@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText username;
     private EditText password;
     private Button submitButton;
+    private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,16 +23,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         username = (EditText) findViewById(R.id.editTextUsername);
         submitButton = (Button) findViewById(R.id.buttonLogin);
         password = (EditText) findViewById(R.id.editTextPassword);
+        registerButton = (Button) findViewById(R.id.buttonRegister);
         submitButton.setOnClickListener(this);
+        registerButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        Intent myIntent = new Intent(MainActivity.this, MainActivity2.class);
-        String user = username.getText().toString();
-        String pass = password.getText().toString();
-        myIntent.putExtra("user", user);
-        myIntent.putExtra("pass", pass);
-        startActivity(myIntent);
+        if(v.getId() == R.id.buttonLogin) {
+            Intent myIntent = new Intent(MainActivity.this, MainActivity2.class);
+            String user = username.getText().toString();
+            String pass = password.getText().toString();
+            myIntent.putExtra("user", user);
+            myIntent.putExtra("pass", pass);
+            startActivity(myIntent);
+        }
+        else if(v.getId() == R.id.buttonRegister){
+            Intent myIntent = new Intent(MainActivity.this, registration.class);
+            startActivity(myIntent);
+        }
     }
 }
