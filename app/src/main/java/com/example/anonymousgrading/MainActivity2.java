@@ -8,17 +8,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity2 extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity2 extends AppCompatActivity implements View.OnClickListener
+{
 
     private TextView user;
     private Button addCouseButton;
+    private Button uploadClassRosterBtn;
     private Button addExamButton;
     private Button viewBarcodesButton;
     private Button gradeButton;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        uploadClassRosterBtn = (Button) findViewById(R.id.uploadCourseRsterBtn);
         addCouseButton = (Button) findViewById(R.id.buttonAddCourse);
         addExamButton = (Button) findViewById(R.id.buttonAddExam);
         viewBarcodesButton = (Button) findViewById(R.id.buttonViewBarcodes);
@@ -26,6 +31,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         user = (TextView) findViewById(R.id.textViewWelcome);
         String theMessage = "Welcome " + getIntent().getStringExtra("user");
         user.setText(theMessage);
+        uploadClassRosterBtn.setOnClickListener(this);
         addCouseButton.setOnClickListener(this);
         addExamButton.setOnClickListener(this);
         viewBarcodesButton.setOnClickListener(this);
@@ -33,17 +39,27 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.buttonAddCourse){
+    public void onClick(View v)
+    {
+        if (v.getId() == R.id.uploadCourseRsterBtn)
+        {
             finish();
         }
-        else if(v.getId() == R.id.buttonAddExam){
+
+        if (v.getId() == R.id.buttonAddCourse)
+        {
             finish();
         }
-        else if(v.getId() == R.id.buttonViewBarcodes){
+        else if (v.getId() == R.id.buttonAddExam)
+        {
             finish();
         }
-        else if(v.getId() == R.id.buttonGrade){
+        else if (v.getId() == R.id.buttonViewBarcodes)
+        {
+            finish();
+        }
+        else if (v.getId() == R.id.buttonGrade)
+        {
             Intent myIntent = new Intent(MainActivity2.this, scanqr.class);
             startActivity(myIntent);
         }

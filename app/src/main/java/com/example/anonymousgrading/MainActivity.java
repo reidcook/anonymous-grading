@@ -9,7 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener
+{
 
     private EditText username;
     private EditText password;
@@ -17,7 +18,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button registerButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         username = (EditText) findViewById(R.id.editTextUsername);
@@ -29,16 +31,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.buttonLogin) {
+    public void onClick(View v)
+    {
+        if (v.getId() == R.id.buttonLogin)
+        {
             Intent myIntent = new Intent(MainActivity.this, MainActivity2.class);
             String user = username.getText().toString();
             String pass = password.getText().toString();
             myIntent.putExtra("user", user);
             myIntent.putExtra("pass", pass);
             startActivity(myIntent);
-        }
-        else if(v.getId() == R.id.buttonRegister){
+        } else if (v.getId() == R.id.buttonRegister)
+        {
             Intent myIntent = new Intent(MainActivity.this, registration.class);
             startActivity(myIntent);
         }

@@ -9,20 +9,35 @@
     <Button
         android:id="@+id/buttonAddCourse"
         android:layout_width="261dp"
-        android:layout_height="110dp"
-        android:text="Add Courses"
+        android:layout_height="80dp"
+        android:text="Add Course"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.531" />
+        app:layout_constraintVertical_bias="0.47" />
+
+    <Button
+        android:id="@+id/uploadCourseRsterBtn"
+        android:layout_width="261dp"
+        android:layout_height="90dp"
+        android:autoSizeTextType="uniform"
+        android:text="Upload Class Roster"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.319" />
 
     <Button
         android:id="@+id/buttonViewBarcodes"
         android:layout_width="261dp"
-        android:layout_height="110dp"
+        android:layout_height="80dp"
+        android:autoSizeTextType="uniform"
         android:text="View Barcodes"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -30,12 +45,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.729" />
+        app:layout_constraintVertical_bias="0.784" />
 
     <Button
         android:id="@+id/buttonGrade"
         android:layout_width="261dp"
-        android:layout_height="110dp"
+        android:layout_height="80dp"
         android:text="Grade"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -63,7 +78,7 @@
     <Button
         android:id="@+id/buttonAddExam"
         android:layout_width="261dp"
-        android:layout_height="110dp"
+        android:layout_height="80dp"
         android:text="Add Exam"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -71,5 +86,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.334" />
+        app:layout_constraintVertical_bias="0.628" />
 </androidx.constraintlayout.widget.ConstraintLayout>
