@@ -13,7 +13,6 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
 
     private TextView user;
     private Button addCouseButton;
-    private Button uploadClassRosterBtn;
     private Button addExamButton;
     private Button viewBarcodesButton;
     private Button gradeButton;
@@ -23,7 +22,6 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        uploadClassRosterBtn = (Button) findViewById(R.id.uploadCourseRsterBtn);
         addCouseButton = (Button) findViewById(R.id.buttonAddCourse);
         addExamButton = (Button) findViewById(R.id.buttonAddExam);
         viewBarcodesButton = (Button) findViewById(R.id.buttonViewBarcodes);
@@ -31,7 +29,6 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         user = (TextView) findViewById(R.id.textViewWelcome);
         String theMessage = "Welcome " + getIntent().getStringExtra("user");
         user.setText(theMessage);
-        uploadClassRosterBtn.setOnClickListener(this);
         addCouseButton.setOnClickListener(this);
         addExamButton.setOnClickListener(this);
         viewBarcodesButton.setOnClickListener(this);
@@ -41,14 +38,10 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v)
     {
-        if (v.getId() == R.id.uploadCourseRsterBtn)
-        {
-            finish();
-        }
-
         if (v.getId() == R.id.buttonAddCourse)
         {
-            finish();
+            Intent myIntent = new Intent(MainActivity2.this, AddCourseActivity.class);
+            startActivity(myIntent);
         }
         else if (v.getId() == R.id.buttonAddExam)
         {
