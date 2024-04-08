@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity2 extends AppCompatActivity implements View.OnClickListener
+public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener
 {
 
     private TextView user;
@@ -21,7 +21,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_welcome);
         addCouseButton = (Button) findViewById(R.id.buttonAddCourse);
         addExamButton = (Button) findViewById(R.id.buttonAddExam);
         viewBarcodesButton = (Button) findViewById(R.id.buttonViewBarcodes);
@@ -40,7 +40,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     {
         if (v.getId() == R.id.buttonAddCourse)
         {
-            Intent myIntent = new Intent(MainActivity2.this, AddCourseActivity.class);
+            Intent myIntent = new Intent(WelcomeActivity.this, AddCourseActivity.class);
             startActivity(myIntent);
         }
         else if (v.getId() == R.id.buttonAddExam)
@@ -53,7 +53,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         }
         else if (v.getId() == R.id.buttonGrade)
         {
-            Intent myIntent = new Intent(MainActivity2.this, scanqr.class);
+            Intent myIntent = new Intent(WelcomeActivity.this, scanqr.class);
             startActivity(myIntent);
         }
     }

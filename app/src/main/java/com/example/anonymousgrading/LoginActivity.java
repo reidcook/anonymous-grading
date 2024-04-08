@@ -7,9 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener
 {
 
     private EditText username;
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         username = (EditText) findViewById(R.id.editTextUsername);
         submitButton = (Button) findViewById(R.id.buttonLogin);
         password = (EditText) findViewById(R.id.editTextPassword);
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         if (v.getId() == R.id.buttonLogin)
         {
-            Intent myIntent = new Intent(MainActivity.this, MainActivity2.class);
+            Intent myIntent = new Intent(LoginActivity.this, ClassRosterActivity.class);
             String user = username.getText().toString();
             String pass = password.getText().toString();
             myIntent.putExtra("user", user);
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(myIntent);
         } else if (v.getId() == R.id.buttonRegister)
         {
-            Intent myIntent = new Intent(MainActivity.this, registration.class);
+            Intent myIntent = new Intent(LoginActivity.this, registration.class);
             startActivity(myIntent);
         }
     }
