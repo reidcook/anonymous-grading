@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         if (v.getId() == R.id.buttonLogin)
         {
-            Intent myIntent = new Intent(MainActivity.this, MainActivity2.class);
+            Intent myIntent = new Intent(MainActivity.this, CourseList.class);
             String user = username.getText().toString();
             String pass = password.getText().toString();
             myIntent.putExtra("user", user);
