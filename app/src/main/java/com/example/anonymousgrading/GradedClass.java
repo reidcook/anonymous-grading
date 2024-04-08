@@ -22,7 +22,7 @@ public class GradedClass
         this.ClassName = "Default Class";
     }
 
-    public static GradedClass GenerateRandom(int studentCount)
+    public static GradedClass GenerateRandomClass(int studentCount)
     {
         String sName = "Student ";
         String className = "Computer Science ";
