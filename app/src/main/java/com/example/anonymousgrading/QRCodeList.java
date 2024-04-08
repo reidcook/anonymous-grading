@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -14,23 +17,26 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class QRCodeList extends AppCompatActivity {
 
-    private String[] name = {"Joe Smith", "Tom Smith"};
+    private Student[] students;
     private ImageView qrCode;
+    private ListView listView_;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode_list);
-        qrCode = (ImageView) findViewById(R.id.imageView);
-        MultiFormatWriter mWriter = new MultiFormatWriter();
-        for(int i = 0; i < name.length; i++) {
-            try {
-                BitMatrix mMatrix = mWriter.encode(name[i], BarcodeFormat.QR_CODE, 400, 400);
-                BarcodeEncoder mEncoder = new BarcodeEncoder();
-                Bitmap mBitmap = mEncoder.createBitmap(mMatrix);
-                qrCode.setImageBitmap(mBitmap);
-            } catch (WriterException e) {
-                e.printStackTrace();
+        Student student = new Student("Joe", "1234546");
+        Student student2 = new Student("Bob", "653093");
+        students = new Student[2];
+        students[0] = student;
+        students[1] = student2;
+        listView_ = (ListView) findViewById(R.id.qrListView);
+        QRListAdapter adapter_ = new QRListAdapter(getApplicationContext(), students);
+        listView_.setAdapter(adapter_);
+        listView_.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // clicked on item: + fruitnames[position]
             }
-        }
+        });
     }
 }

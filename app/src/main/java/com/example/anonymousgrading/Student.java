@@ -4,7 +4,7 @@ public class Student
 {
     String name;
     String Id;
-    int barcode[];
+    int[] barcode = null;
     String grade;
     public Student(String name, String id)
     {
