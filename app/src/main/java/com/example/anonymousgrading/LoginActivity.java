@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     {
         if (v.getId() == R.id.buttonLogin)
         {
-            Intent myIntent = new Intent(LoginActivity.this, QRCodeList.class);
+            Intent myIntent = new Intent(LoginActivity.this, CourseList.class);
             String user = username.getText().toString();
             String pass = password.getText().toString();
             myIntent.putExtra("user", user);

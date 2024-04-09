@@ -2,6 +2,7 @@ package com.example.anonymousgrading;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +23,10 @@ public class CourseList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // clicked on item: + fruitnames[position]
+                Intent myIntent = new Intent(CourseList.this, QRCodeList.class);
+                // passing which class was clicked on to text activity
+                myIntent.putExtra("ClassName", classNames[position]);
+                startActivity(myIntent);
             }
         });
     }
