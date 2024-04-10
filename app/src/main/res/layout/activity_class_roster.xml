@@ -8,23 +8,38 @@
 
     <TextView
         android:id="@+id/classRosterTxt"
-        android:layout_width="141dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="195dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="16dp"
+        android:autoSizeTextType="uniform"
         android:text="Class Roster"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.433"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/studentListView"
-        android:layout_width="344dp"
-        android:layout_height="606dp"
+        android:layout_width="301dp"
+        android:layout_height="552dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintHorizontal_bias="0.145"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classRosterTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/classRosterTxt"
+        app:layout_constraintVertical_bias="0.762" />
+
+    <TextView
+        android:id="@+id/classRosterNameTxt"
+        android:layout_width="294dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="92dp"
+        android:autoSizeTextType="uniform"
+        android:text="Class Name"
+        app:layout_constraintBottom_toTopOf="@+id/studentListView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.196"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.307" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

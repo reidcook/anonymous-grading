@@ -2,6 +2,7 @@ package com.example.anonymousgrading;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 // This will list all the classes an Instructor has to teach
 public class ClassListActivity extends AppCompatActivity
 {
-
+    ArrayList<GradedClass> gradedClasses;
     ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -23,13 +24,13 @@ public class ClassListActivity extends AppCompatActivity
 
         listView = (ListView) findViewById(R.id.classListView);
 
-        ArrayList<GradedClass> c = GradedClass.GenerateXClasses(5,5);
+        gradedClasses = GradedClass.GenerateXClasses(5,5);
 
         ArrayList<String> names = new ArrayList<>();
 
-        for(int i = 0; i < c.size(); i++)
+        for(int i = 0; i < gradedClasses.size(); i++)
         {
-            String name = c.get(i).ClassName;
+            String name = gradedClasses.get(i).ClassName;
             names.add(name);
         }
 
@@ -42,10 +43,16 @@ public class ClassListActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                //Intent classIntent = new Intent()
+                GradedClass g = gradedClasses.get(position);
+
+                Intent classIntent = new Intent(ClassListActivity.this, ClassRosterActivity.class);
+
+                classIntent.putExtra("className", g.ClassName);
+                startActivity(classIntent);
             }
         });
-    }
 
+
+    }
 
 }
