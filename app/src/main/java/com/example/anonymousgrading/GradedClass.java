@@ -48,6 +48,18 @@ public class GradedClass
         return  gc;
     }
 
+    public static  ArrayList<GradedClass> GenerateXClasses(int classCount, int studentCount)
+    {
+        ArrayList<GradedClass> classes = new ArrayList<>();
+
+        for(int i = 0; i < classCount; i++)
+        {
+            classes.add(GenerateRandomClass(classCount));
+        }
+
+        return classes;
+    }
+
     public void AddStudent(Student student)
     {
         students.add(student);

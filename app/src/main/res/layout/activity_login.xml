@@ -22,8 +22,8 @@
 
     <EditText
         android:id="@+id/editTextUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="258dp"
+        android:layout_height="66dp"
         android:ems="10"
         android:inputType="text"
         android:text="Username"
@@ -36,8 +36,8 @@
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="252dp"
+        android:layout_height="56dp"
         android:ems="10"
         android:inputType="text"
         android:password="true"

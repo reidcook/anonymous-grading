@@ -8,24 +8,23 @@
 
     <TextView
         android:id="@+id/classRosterTxt"
-        android:layout_width="171dp"
-        android:layout_height="38dp"
-        android:autoSizeTextType="uniform"
-        android:autoText="false"
+        android:layout_width="141dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="32dp"
         android:text="Class Roster"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.433"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.043" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:layout_width="360dp"
-        android:layout_height="623dp"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="77dp" />
+        android:id="@+id/studentListView"
+        android:layout_width="344dp"
+        android:layout_height="606dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/classRosterTxt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

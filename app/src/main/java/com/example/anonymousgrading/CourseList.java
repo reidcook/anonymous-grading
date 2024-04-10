@@ -14,8 +14,8 @@ public class CourseList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_list);
-        listView_ = (ListView) findViewById(R.id.listView);
+        setContentView(R.layout.activity_class_list);
+        listView_ = (ListView) findViewById(R.id.classListView);
         CustomAdapter adapter_ = new CustomAdapter(getApplicationContext(), classNames);
         listView_.setAdapter(adapter_);
 
