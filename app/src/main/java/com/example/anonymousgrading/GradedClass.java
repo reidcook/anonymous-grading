@@ -22,10 +22,9 @@ public class GradedClass
         this.ClassName = "Default Class";
     }
 
-    public static GradedClass GenerateRandomClass(int studentCount)
+    public static GradedClass GenerateRandomClass(int studentCount, String className)
     {
         String sName = "Student ";
-        String className = "Computer Science ";
         String instructorName = "Nilan B";
         GradedClass gc = new GradedClass();
 
@@ -34,7 +33,7 @@ public class GradedClass
 
         int n = (int) ((Math.random() * (max - min)) + min);
 
-        gc.ClassName = className + n;
+        gc.ClassName = className;
         gc.InstructorName = instructorName;
 
         for(int i = 0; i < studentCount; i++)
@@ -42,19 +41,19 @@ public class GradedClass
             String name = sName + i;
             String id = "XX-" + i + "-00000";
 
-            gc.AddStudent(name, id);
+            gc.AddStudent(name, id, className);
         }
 
         return  gc;
     }
 
-    public static  ArrayList<GradedClass> GenerateXClasses(int classCount, int studentCount)
+    public static  ArrayList<GradedClass> GenerateXClasses(int classCount, int studentCount, String className)
     {
         ArrayList<GradedClass> classes = new ArrayList<>();
 
         for(int i = 0; i < classCount; i++)
         {
-            classes.add(GenerateRandomClass(classCount));
+            classes.add(GenerateRandomClass(classCount, className));
         }
 
         return classes;
@@ -65,15 +64,17 @@ public class GradedClass
         students.add(student);
     }
 
-    public void AddStudent(String name, String id)
+    public void AddStudent(String name, String id, String className)
     {
-        Student student = new Student(name, id);
+        Student student = new Student(name, id, className);
         students.add(student);
     }
 
     public void AddStudents(URI csvFile)
     {
         /// parse csv, and add names
+        // csv has been parsed, and students have been
+        ArrayList<Student> theStudents;
     }
 
 }

@@ -1,31 +1,26 @@
 package com.example.anonymousgrading;
 
-public class Student
+import android.content.SharedPreferences;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Student extends AppCompatActivity
 {
     String name;
     String Id;
     int[] barcode = null;
     String grade;
-    public Student(String name, String id)
+    String className;
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
+    public Student(String name, String id, String className)
     {
         this.name = name;
         this.Id = id;
-    }
-
-    public static Student GenerateRandomStudent()
-    {
-        String sName = "Student - ";
-        String sId = "XX-";
-
-        int n = (int) ((Math.random() * (1000 - 100)) + 100);
-        sName += n;
-
-        int min = 100000;
-        int max = 999999;
-
-        n = (int) ((Math.random() * (max - min)) + min);
-        sId += n;
-
-        return  new Student(sName, sId);
+        this.className = className;
+        prefs = getSharedPreferences(className, MODE_APPEND);
+        editor = prefs.edit();
+        editor.putString(name, id);
+        editor.commit();
     }
 }

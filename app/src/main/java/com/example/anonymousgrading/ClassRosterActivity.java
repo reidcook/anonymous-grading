@@ -3,7 +3,9 @@ package com.example.anonymousgrading;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +17,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 // This will list all the students in a given class
 public class ClassRosterActivity extends AppCompatActivity implements View.OnClickListener
@@ -26,6 +29,8 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
     TextView classRosterTxt;
     Button addExam;
     Button gradeExams;
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
 
     public ClassRosterActivity()
     {
@@ -43,9 +48,10 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
 
         Bundle bundle = getIntent().getExtras();
 
-        if(bundle.getString("className") != null)
+        if(getIntent().getStringExtra("className") != null)
         {
-            className = bundle.getString("className");
+            className = getIntent().getStringExtra("className");
+            Log.d("map values", className);
         }
         addExam.setOnClickListener(this);
         gradeExams.setOnClickListener(this);
@@ -54,19 +60,19 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
 
     public void DisplayClass()
     {
-        ArrayList<Student> names = new ArrayList<Student>();
-
-        gradedClass = GradedClass.GenerateRandomClass(10);
-        gradedClass.ClassName = className;
+        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> ids = new ArrayList<String>();
 
         classRosterTxt.setText(className);
+        prefs = getSharedPreferences(className, MODE_APPEND);
+        Map<String,?> keys = prefs.getAll();
 
-        for(int i = 0; i < gradedClass.students.size(); i++)
-        {
-            Student student = gradedClass.students.get(i);
-            names.add(student);
+        for(Map.Entry<String,?> entry : keys.entrySet()){
+            Log.d("Students",entry.getKey() + ": " + entry.getValue().toString());
+            names.add(entry.getKey().toString());
+            ids.add(entry.getValue().toString());
         }
-        QRListAdapter adapter_ = new QRListAdapter(getApplicationContext(), names);
+        QRListAdapter adapter_ = new QRListAdapter(getApplicationContext(), names, ids);
 
         listView.setAdapter(adapter_);
 

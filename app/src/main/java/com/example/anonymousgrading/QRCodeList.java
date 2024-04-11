@@ -45,14 +45,14 @@ public class QRCodeList extends AppCompatActivity implements View.OnClickListene
         className.setText(getIntent().getStringExtra("ClassName"));
         gradeExamsButton.setOnClickListener(this);
         addExamButton.setOnClickListener(this);
-        Student student = new Student("Joe", "1234546");
-        Student student2 = new Student("Bob", "653093");
-        students = new ArrayList<Student>();
-        students.add(student);
-        students.add(student2);
-        listView_ = (ListView) findViewById(R.id.qrListView);
-        QRListAdapter adapter_ = new QRListAdapter(getApplicationContext(), students);
-        listView_.setAdapter(adapter_);
+        //Student student = new Student("Joe", "1234546", "class1");
+        //Student student2 = new Student("Bob", "653093", "class1");
+        //students = new ArrayList<Student>();
+        //students.add(student);
+        //students.add(student2);
+        //listView_ = (ListView) findViewById(R.id.qrListView);
+        //QRListAdapter adapter_ = new QRListAdapter(getApplicationContext(), students);
+        //listView_.setAdapter(adapter_);
         listView_.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
