@@ -28,7 +28,7 @@ import java.util.List;
 
 public class QRCodeList extends AppCompatActivity implements View.OnClickListener{
 
-    private List<Student> students;
+    private ArrayList<Student> students;
     private ListView listView_;
     private Button gradeExamsButton;
     private Button addExamButton;

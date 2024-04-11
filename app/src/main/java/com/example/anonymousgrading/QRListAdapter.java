@@ -15,14 +15,15 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QRListAdapter extends BaseAdapter {
-    private List<Student> students;
+    private ArrayList<Student> students;
     private Context context;
     private LayoutInflater layoutInflater;
 
-    public QRListAdapter(Context context, List<Student> students){
+    public QRListAdapter(Context context, ArrayList<Student> students){
         this.context = context;
         this.students = students;
         this.layoutInflater = LayoutInflater.from(context);

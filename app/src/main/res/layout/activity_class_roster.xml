@@ -19,8 +19,8 @@
 
     <ListView
         android:id="@+id/studentListView"
-        android:layout_width="301dp"
-        android:layout_height="552dp"
+        android:layout_width="394dp"
+        android:layout_height="557dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.145"
@@ -35,11 +35,36 @@
         android:layout_marginTop="92dp"
         android:autoSizeTextType="uniform"
         android:text="Class Name"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/studentListView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.196"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.307" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Exam"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.098" />
+
+    <Button
+        android:id="@+id/buttonGrade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grade Exams"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.098" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
