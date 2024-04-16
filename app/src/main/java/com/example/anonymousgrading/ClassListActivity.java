@@ -2,6 +2,7 @@ package com.example.anonymousgrading;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ public class ClassListActivity extends AppCompatActivity
         listView = (ListView) findViewById(R.id.classListView);
 
         // These insert data as shared prefrences. After ran once, will be saved on machine
-/*
+
         prefs = getSharedPreferences("Classes", MODE_APPEND);
         editor =  prefs.edit();
         editor.clear().commit();
@@ -60,7 +61,7 @@ public class ClassListActivity extends AppCompatActivity
         editor =  prefs.edit();
         editor.putString("Bob", "999999");
         editor.commit();
-*/
+
         prefs = getSharedPreferences("Classes", MODE_APPEND);
         ArrayList<String> names = new ArrayList<>();
         Map<String,?> keys = prefs.getAll();
@@ -89,6 +90,35 @@ public class ClassListActivity extends AppCompatActivity
         });
 
 
+    }
+
+    private static String classPref = "Classes";
+    private void SaveClasses()
+    {
+        // For each class in our list of classes
+        // remove the class if it already exists in shared preferences
+        // add the class back
+        // Get the shared reference of the class you just added
+        // loop through all the students in the class and add it under said shared preference
+        for(GradedClass gc : gradedClasses)
+        {
+            prefs = getSharedPreferences(classPref, Context.MODE_APPEND);
+            editor =  prefs.edit();
+            editor.remove(gc.className).commit();
+            editor.putString(gc.className, gc.className);
+            editor.commit();
+
+            prefs = getSharedPreferences(gc.className, Context.MODE_APPEND);
+            editor =  prefs.edit();
+
+            for(Student s: gc.students)
+            {
+                editor.putString(s.name, s.Id);
+            }
+
+            editor.commit();
+
+        }
     }
 
 }

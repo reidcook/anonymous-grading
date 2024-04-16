@@ -2,24 +2,23 @@ package com.example.anonymousgrading;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class GradedClass
 {
     String InstructorName;
-    String ClassName;
+    String className;
     public ArrayList<Student> students = new ArrayList<>();
 
     public GradedClass(String className, String instrutorName)
     {
         this.InstructorName = instrutorName;
-        this.ClassName = className;
+        this.className = className;
     }
 
     public GradedClass()
     {
         this.InstructorName = "Default Instructor";
-        this.ClassName = "Default Class";
+        this.className = "Default Class";
     }
 
     public static GradedClass GenerateRandomClass(int studentCount, String className)
@@ -33,7 +32,7 @@ public class GradedClass
 
         int n = (int) ((Math.random() * (max - min)) + min);
 
-        gc.ClassName = className;
+        gc.className = className;
         gc.InstructorName = instructorName;
 
         for(int i = 0; i < studentCount; i++)
