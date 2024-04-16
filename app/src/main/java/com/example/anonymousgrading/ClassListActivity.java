@@ -35,41 +35,48 @@ public class ClassListActivity extends AppCompatActivity
         prefs = getSharedPreferences("Classes", MODE_APPEND);
         editor =  prefs.edit();
         editor.clear().commit();
-        editor.putString("Algebra", "Algebra");
-        editor.putString("Biology", "Biology");
-        editor.putString("Calculus", "Calculus");
-        editor.putString("Mobile Computing", "Mobile Computing");
-        editor.putString("History", "History");
-        editor.commit();
-        prefs = getSharedPreferences("Algebra", MODE_APPEND);
-        editor =  prefs.edit();
-        editor.putString("Tom", "123456");
-        editor.commit();
-        prefs = getSharedPreferences("Biology", MODE_APPEND);
-        editor =  prefs.edit();
-        editor.putString("Sarah", "111111");
-        editor.commit();
-        prefs = getSharedPreferences("Calculus", MODE_APPEND);
-        editor =  prefs.edit();
-        editor.putString("Eric", "222226");
-        editor.commit();
-        prefs = getSharedPreferences("Mobile Computing", MODE_APPEND);
-        editor =  prefs.edit();
-        editor.putString("Emily", "777777");
-        editor.commit();
-        prefs = getSharedPreferences("History", MODE_APPEND);
-        editor =  prefs.edit();
-        editor.putString("Bob", "999999");
-        editor.commit();
+//        editor.putString("Algebra", "Algebra");
+//        editor.putString("Biology", "Biology");
+//        editor.putString("Calculus", "Calculus");
+//        editor.putString("Mobile Computing", "Mobile Computing");
+//        editor.putString("History", "History");
+//        editor.commit();
+//        prefs = getSharedPreferences("Algebra", MODE_APPEND);
+//        editor =  prefs.edit();
+//        editor.putString("Tom", "123456");
+//        editor.commit();
+//        prefs = getSharedPreferences("Biology", MODE_APPEND);
+//        editor =  prefs.edit();
+//        editor.putString("Sarah", "111111");
+//        editor.commit();
+//        prefs = getSharedPreferences("Calculus", MODE_APPEND);
+//        editor =  prefs.edit();
+//        editor.putString("Eric", "222226");
+//        editor.commit();
+//        prefs = getSharedPreferences("Mobile Computing", MODE_APPEND);
+//        editor =  prefs.edit();
+//        editor.putString("Emily", "777777");
+//        editor.commit();
+//        prefs = getSharedPreferences("History", MODE_APPEND);
+//        editor =  prefs.edit();
+//        editor.putString("Bob", "999999");
+//        editor.commit();
 
-        prefs = getSharedPreferences("Classes", MODE_APPEND);
-        ArrayList<String> names = new ArrayList<>();
-        Map<String,?> keys = prefs.getAll();
+        GetSavedClassed();
 
-        for(Map.Entry<String,?> entry : keys.entrySet()){
-            Log.d("map values",entry.getKey() + ": " + entry.getValue().toString());
-            names.add(entry.getValue().toString());
+        if(gradedClasses.size() == 0)
+        {
+            SaveClasses();
         }
+
+
+        ArrayList<String> names = new ArrayList<>();
+
+        for (GradedClass gc: gradedClasses)
+        {
+            names.add(gc.className);
+        }
+
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
                 (this, R.layout.activity_class_text, R.id.classNameTxt, names);
@@ -121,4 +128,62 @@ public class ClassListActivity extends AppCompatActivity
         }
     }
 
+    private void GetSavedClassed()
+    {
+        prefs = getSharedPreferences(classPref, MODE_APPEND);
+        ArrayList<String> classNames = new ArrayList<>();
+        Map<String,?> keys = prefs.getAll();
+
+        gradedClasses = new ArrayList<>();
+
+        for (String className : keys.keySet())
+        {
+            GradedClass gradedClass = new GradedClass(className, "Test");
+            // Get the SharedPreferences instance for the current class
+            SharedPreferences classPrefs = getSharedPreferences(className, Context.MODE_PRIVATE);
+
+            // Create a new list to hold students
+            ArrayList<Student> students = new ArrayList<>();
+
+            // Get all the keys in the preferences (student names)
+            Map<String, ?> allStudents = classPrefs.getAll();
+
+            for (Map.Entry<String, ?> entry : allStudents.entrySet())
+            {
+                String studentName = entry.getKey();
+                String studentId = (String) entry.getValue();
+
+                // Create a new student object and add to the list
+                Student student = new Student(studentName, studentId, className);
+                gradedClass.AddStudent(student);
+            }
+
+            // Create a new GradedClass object and populate with students
+
+
+            // Add the GradedClass object to the list
+            gradedClasses.add(gradedClass);
+        }
+
+
+//        for(GradedClass gc : gradedClasses)
+//        {
+//            prefs = getSharedPreferences(classPref, Context.MODE_APPEND);
+//            editor =  prefs.edit();
+//            editor.remove(gc.className).commit();
+//            editor.putString(gc.className, gc.className);
+//            editor.commit();
+//
+//            prefs = getSharedPreferences(gc.className, Context.MODE_APPEND);
+//            editor =  prefs.edit();
+//
+//            for(Student s: gc.students)
+//            {
+//                editor.putString(s.name, s.Id);
+//            }
+//
+//            editor.commit();
+//
+//        }
+    }
 }

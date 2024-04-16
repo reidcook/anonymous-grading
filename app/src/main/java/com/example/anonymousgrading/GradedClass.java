@@ -46,13 +46,13 @@ public class GradedClass
         return  gc;
     }
 
-    public static  ArrayList<GradedClass> GenerateXClasses(int classCount, int studentCount, String className)
+    public static  ArrayList<GradedClass> GenerateXClasses(int classCount, int studentCount)
     {
         ArrayList<GradedClass> classes = new ArrayList<>();
 
         for(int i = 0; i < classCount; i++)
         {
-            classes.add(GenerateRandomClass(classCount, className));
+            classes.add(GenerateRandomClass(classCount, "Class " + i));
         }
 
         return classes;

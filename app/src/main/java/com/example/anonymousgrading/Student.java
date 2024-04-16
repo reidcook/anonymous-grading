@@ -18,9 +18,9 @@ public class Student extends AppCompatActivity
         this.name = name;
         this.Id = id;
         this.className = className;
-        prefs = getSharedPreferences(className, MODE_APPEND);
-        editor = prefs.edit();
-        editor.putString(name, id);
-        editor.commit();
+//        prefs = getSharedPreferences(className, MODE_APPEND);
+//        editor = prefs.edit();
+//        editor.putString(name, id);
+//        editor.commit();
     }
 }
