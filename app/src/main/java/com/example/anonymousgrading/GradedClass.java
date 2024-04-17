@@ -5,26 +5,22 @@ import java.util.ArrayList;
 
 public class GradedClass
 {
-    String InstructorName;
     String className;
     public ArrayList<Student> students = new ArrayList<>();
 
-    public GradedClass(String className, String instrutorName)
+    public GradedClass(String className)
     {
-        this.InstructorName = instrutorName;
         this.className = className;
     }
 
     public GradedClass()
     {
-        this.InstructorName = "Default Instructor";
-        this.className = "Default Class";
+        this.className = "Default Class Name";
     }
 
     public static GradedClass GenerateRandomClass(int studentCount, String className)
     {
         String sName = "Student ";
-        String instructorName = "Nilan B";
         GradedClass gc = new GradedClass();
 
         int min = 100;
@@ -33,7 +29,6 @@ public class GradedClass
         int n = (int) ((Math.random() * (max - min)) + min);
 
         gc.className = className;
-        gc.InstructorName = instructorName;
 
         for(int i = 0; i < studentCount; i++)
         {
@@ -67,6 +62,11 @@ public class GradedClass
     {
         Student student = new Student(name, id);
         students.add(student);
+    }
+
+    public void AddStudent(ArrayList<Student> students)
+    {
+        students.addAll(students);
     }
 
     public void GetStudent(URI csvFile)

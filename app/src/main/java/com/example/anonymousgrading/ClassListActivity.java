@@ -2,6 +2,7 @@ package com.example.anonymousgrading;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -19,12 +21,13 @@ import java.util.ArrayList;
 import java.util.Map;
 
 // This will list all the classes an Instructor has to teach
-public class ClassListActivity extends AppCompatActivity
+public class ClassListActivity extends AppCompatActivity implements View.OnClickListener
 {
     ArrayList<GradedClass> gradedClasses;
     ListView listView;
+
+    Button newCourseBtn;
     private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -32,33 +35,11 @@ public class ClassListActivity extends AppCompatActivity
         setContentView(R.layout.activity_class_list);
 
         listView = (ListView) findViewById(R.id.classListView);
-//        editor.putString("Algebra", "Algebra");
-//        editor.putString("Biology", "Biology");
-//        editor.putString("Calculus", "Calculus");
-//        editor.putString("Mobile Computing", "Mobile Computing");
-//        editor.putString("History", "History");
-//        editor.commit();
-//        prefs = getSharedPreferences("Algebra", MODE_APPEND);
-//        editor =  prefs.edit();
-//        editor.putString("Tom", "123456");
-//        editor.commit();
-//        prefs = getSharedPreferences("Biology", MODE_APPEND);
-//        editor =  prefs.edit();
-//        editor.putString("Sarah", "111111");
-//        editor.commit();
-//        prefs = getSharedPreferences("Calculus", MODE_APPEND);
-//        editor =  prefs.edit();
-//        editor.putString("Eric", "222226");
-//        editor.commit();
-//        prefs = getSharedPreferences("Mobile Computing", MODE_APPEND);
-//        editor =  prefs.edit();
-//        editor.putString("Emily", "777777");
-//        editor.commit();
-//        prefs = getSharedPreferences("History", MODE_APPEND);
-//        editor =  prefs.edit();
-//        editor.putString("Bob", "999999");
-//        editor.commit();
+        newCourseBtn = (Button) findViewById(R.id.newCourseBtn);
+
         GetSavedJson();
+
+        newCourseBtn.setOnClickListener(this);
 
         if(gradedClasses.size() == 0)
         {
@@ -77,7 +58,6 @@ public class ClassListActivity extends AppCompatActivity
                 (this, R.layout.activity_class_text, R.id.classNameTxt, names);
 
         listView.setAdapter(arrayAdapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -93,7 +73,7 @@ public class ClassListActivity extends AppCompatActivity
         });
     }
 
-    private static String classPref = "Classes";
+    public static String classPref = "Classes";
     private void SaveClasses()
     {
         // Saves the Graded class list.
@@ -104,6 +84,7 @@ public class ClassListActivity extends AppCompatActivity
 
         String json = "";
         String ms = "";
+
         try
         {
             json =  gson.toJson(gradedClasses).toString();
@@ -134,16 +115,42 @@ public class ClassListActivity extends AppCompatActivity
         }
         else
         {
-            Type type = new TypeToken<ArrayList<GradedClass>>() {}.getType();
-            gradedClasses = gson.fromJson(json, type);
+            gradedClasses = DeserializeClassList(json);
         }
 
     }
-
-    private String SerializeClass(GradedClass gradedClass)
+    public static String SerializeClass(GradedClass gradedClass)
     {
         Gson gson = new Gson();
-
         return gson.toJson(gradedClass);
+    }
+    public static String SerializeClass(ArrayList<GradedClass> gradedClasses)
+    {
+        Gson gson = new Gson();
+        return gson.toJson(gradedClasses);
+    }
+    public static GradedClass DeserializeClass(String gradedClassJson)
+    {
+        Gson gson = new Gson();
+        return gson.fromJson(gradedClassJson, GradedClass.class);
+    }
+    public static ArrayList<GradedClass> DeserializeClassList(String classListJson)
+    {
+        Gson gson = new Gson();
+        ArrayList<GradedClass> gradedClasses = new ArrayList<>();
+        Type type = new TypeToken<ArrayList<GradedClass>>() {}.getType();
+        gradedClasses = gson.fromJson(classListJson, type);
+
+        return gradedClasses;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        if(v.getId() == R.id.newCourseBtn)
+        {
+            Intent myIntent = new Intent(ClassListActivity.this, AddCourseActivity.class);
+            startActivity(myIntent);
+        }
     }
 }

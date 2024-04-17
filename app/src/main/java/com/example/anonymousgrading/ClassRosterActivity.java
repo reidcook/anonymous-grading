@@ -32,6 +32,7 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
 
     public ClassRosterActivity()
     {
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState)

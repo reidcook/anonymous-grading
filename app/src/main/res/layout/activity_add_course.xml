@@ -4,31 +4,98 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".AddCourseActivity">
 
-    <Button
-        android:id="@+id/singleCourseBtn"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:autoSizeTextType="uniform"
-        android:text="Add Single Course"
+    <intent-filter>
+        <action android:name="android.intent.action.GET_CONTENT" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.OPENABLE" />
+
+        <data android:mimeType="*/*" />
+    </intent-filter>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="468dp"
+        android:autoSizeTextType="none"
+        android:autoText="false"
+        android:paddingTop="10dp"
+        android:text="Add Roster"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="209dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="28dp"
+        android:autoSizeTextType="uniform"
+        android:text="Add New Course"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.292" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/courseRosterETxt"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:autoSizeTextType="uniform"
+        android:backgroundTint="#F4EFEF"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Course Name"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:autoSizeTextType="none"
+        android:autoText="false"
+        android:paddingTop="10dp"
+        android:text="Course Name"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/courseRosterETxt"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
-        android:id="@+id/courseRsterBtn"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:autoSizeTextType="uniform"
-        android:text="Upload Course Roster"
+        android:id="@+id/finishAddCourseBtn"
+        android:layout_width="135dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="356dp"
+        android:text="Add Course"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.365"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.683" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/uploadRosterBtn"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="466dp"
+        android:text="Click To Upload Roster"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,4 +48,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.journeyapps:zxing-android-embedded:4.1.0")
     implementation ("com.google.code.gson:gson:2.8.9")
+    implementation ("com.opencsv:opencsv:5.7.1")
 }
