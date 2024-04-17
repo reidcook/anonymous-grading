@@ -12,6 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -29,12 +33,6 @@ public class ClassListActivity extends AppCompatActivity
         setContentView(R.layout.activity_class_list);
 
         listView = (ListView) findViewById(R.id.classListView);
-
-        // These insert data as shared prefrences. After ran once, will be saved on machine
-
-        prefs = getSharedPreferences("Classes", MODE_APPEND);
-        editor =  prefs.edit();
-        editor.clear().commit();
 //        editor.putString("Algebra", "Algebra");
 //        editor.putString("Biology", "Biology");
 //        editor.putString("Calculus", "Calculus");
@@ -61,14 +59,13 @@ public class ClassListActivity extends AppCompatActivity
 //        editor =  prefs.edit();
 //        editor.putString("Bob", "999999");
 //        editor.commit();
-
-        GetSavedClassed();
+        GetSaveJson();
 
         if(gradedClasses.size() == 0)
         {
-            SaveClasses();
+            gradedClasses = GradedClass.GenerateXClasses(5, 5);
+            SaveJson();
         }
-
 
         ArrayList<String> names = new ArrayList<>();
 
@@ -95,95 +92,54 @@ public class ClassListActivity extends AppCompatActivity
                 startActivity(classIntent);
             }
         });
-
-
     }
 
     private static String classPref = "Classes";
-    private void SaveClasses()
+    private void SaveJson()
     {
-        // For each class in our list of classes
-        // remove the class if it already exists in shared preferences
-        // add the class back
-        // Get the shared reference of the class you just added
-        // loop through all the students in the class and add it under said shared preference
-        for(GradedClass gc : gradedClasses)
+        // Saves the Graded class list.
+        // This is done by serialzing the gradedclass list into a string and saving said string
+        SharedPreferences mPrefs = getSharedPreferences(classPref, Context.MODE_APPEND);
+        SharedPreferences.Editor editor = mPrefs.edit();
+        Gson gson = new Gson();
+
+        String json = "";
+        String ms = "";
+        try
         {
-            prefs = getSharedPreferences(classPref, Context.MODE_APPEND);
-            editor =  prefs.edit();
-            editor.remove(gc.className).commit();
-            editor.putString(gc.className, gc.className);
-            editor.commit();
-
-            prefs = getSharedPreferences(gc.className, Context.MODE_APPEND);
-            editor =  prefs.edit();
-
-            for(Student s: gc.students)
-            {
-                editor.putString(s.name, s.Id);
-            }
-
-            editor.commit();
-
+            json =  gson.toJson(gradedClasses).toString();
         }
+        catch(Exception e)
+        {
+            ms = e.getMessage();
+            Log.d("Error", e.getMessage());
+        }
+
+        editor.remove(classPref).commit();
+        editor.putString(classPref, json);
+        editor.commit();
+
     }
 
-    private void GetSavedClassed()
+    private void GetSaveJson()
     {
+        // we get from shared pref a json which is a list of graded classes
+        Gson gson = new Gson();
         prefs = getSharedPreferences(classPref, MODE_APPEND);
         ArrayList<String> classNames = new ArrayList<>();
+        String json = prefs.getString(classPref, "");
         Map<String,?> keys = prefs.getAll();
 
-        gradedClasses = new ArrayList<>();
-
-        for (String className : keys.keySet())
+        if(json == "")
         {
-            GradedClass gradedClass = new GradedClass(className, "Test");
-            // Get the SharedPreferences instance for the current class
-            SharedPreferences classPrefs = getSharedPreferences(className, Context.MODE_PRIVATE);
-
-            // Create a new list to hold students
-            ArrayList<Student> students = new ArrayList<>();
-
-            // Get all the keys in the preferences (student names)
-            Map<String, ?> allStudents = classPrefs.getAll();
-
-            for (Map.Entry<String, ?> entry : allStudents.entrySet())
-            {
-                String studentName = entry.getKey();
-                String studentId = (String) entry.getValue();
-
-                // Create a new student object and add to the list
-                Student student = new Student(studentName, studentId, className);
-                gradedClass.AddStudent(student);
-            }
-
-            // Create a new GradedClass object and populate with students
-
-
-            // Add the GradedClass object to the list
-            gradedClasses.add(gradedClass);
+            gradedClasses =  new ArrayList<>();
+        }
+        else
+        {
+            Type type = new TypeToken<ArrayList<GradedClass>>() {}.getType();
+            gradedClasses = gson.fromJson(json, type);
         }
 
-
-//        for(GradedClass gc : gradedClasses)
-//        {
-//            prefs = getSharedPreferences(classPref, Context.MODE_APPEND);
-//            editor =  prefs.edit();
-//            editor.remove(gc.className).commit();
-//            editor.putString(gc.className, gc.className);
-//            editor.commit();
-//
-//            prefs = getSharedPreferences(gc.className, Context.MODE_APPEND);
-//            editor =  prefs.edit();
-//
-//            for(Student s: gc.students)
-//            {
-//                editor.putString(s.name, s.Id);
-//            }
-//
-//            editor.commit();
-//
-//        }
     }
+
 }

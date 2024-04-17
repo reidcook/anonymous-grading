@@ -65,7 +65,7 @@ public class GradedClass
 
     public void AddStudent(String name, String id, String className)
     {
-        Student student = new Student(name, id, className);
+        Student student = new Student(name, id);
         students.add(student);
     }
 

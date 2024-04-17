@@ -4,20 +4,18 @@ import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Student extends AppCompatActivity
+public class Student
 {
     String name;
     String Id;
-    int[] barcode = null;
+    int[] barcode;
     String grade;
-    String className;
-    private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
-    public Student(String name, String id, String className)
+
+    public Student(String name, String id)
     {
         this.name = name;
         this.Id = id;
-        this.className = className;
+
 //        prefs = getSharedPreferences(className, MODE_APPEND);
 //        editor = prefs.edit();
 //        editor.putString(name, id);
