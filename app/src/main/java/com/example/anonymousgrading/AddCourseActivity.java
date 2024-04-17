@@ -67,7 +67,7 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
         intent.addCategory(Intent.CATEGORY_OPENABLE); // Only files that can be opened
 
         // Start the file picker
-        start(intent, FILE_PICKER_REQUEST_CODE);
+        startActivityForResult(intent, FILE_PICKER_REQUEST_CODE);
     }
 
     @Override
