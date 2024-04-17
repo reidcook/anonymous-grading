@@ -2,7 +2,6 @@ package com.example.anonymousgrading;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -59,12 +58,12 @@ public class ClassListActivity extends AppCompatActivity
 //        editor =  prefs.edit();
 //        editor.putString("Bob", "999999");
 //        editor.commit();
-        GetSaveJson();
+        GetSavedJson();
 
         if(gradedClasses.size() == 0)
         {
             gradedClasses = GradedClass.GenerateXClasses(5, 5);
-            SaveJson();
+            SaveClasses();
         }
 
         ArrayList<String> names = new ArrayList<>();
@@ -73,7 +72,6 @@ public class ClassListActivity extends AppCompatActivity
         {
             names.add(gc.className);
         }
-
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
                 (this, R.layout.activity_class_text, R.id.classNameTxt, names);
@@ -84,22 +82,23 @@ public class ClassListActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                String theName = names.get(position);
-
                 Intent classIntent = new Intent(ClassListActivity.this, ClassRosterActivity.class);
 
-                classIntent.putExtra("className", theName);
+                GradedClass gClass = gradedClasses.get(position);
+
+                String json = SerializeClass(gClass);
+                classIntent.putExtra(ClassRosterActivity.classRosterExtra, json);
                 startActivity(classIntent);
             }
         });
     }
 
     private static String classPref = "Classes";
-    private void SaveJson()
+    private void SaveClasses()
     {
         // Saves the Graded class list.
         // This is done by serialzing the gradedclass list into a string and saving said string
-        SharedPreferences mPrefs = getSharedPreferences(classPref, Context.MODE_APPEND);
+        SharedPreferences mPrefs = getSharedPreferences(classPref, MODE_PRIVATE);
         SharedPreferences.Editor editor = mPrefs.edit();
         Gson gson = new Gson();
 
@@ -120,13 +119,12 @@ public class ClassListActivity extends AppCompatActivity
         editor.commit();
 
     }
-
-    private void GetSaveJson()
+    private void GetSavedJson()
     {
         // we get from shared pref a json which is a list of graded classes
+        prefs = getSharedPreferences(classPref, MODE_PRIVATE);
+
         Gson gson = new Gson();
-        prefs = getSharedPreferences(classPref, MODE_APPEND);
-        ArrayList<String> classNames = new ArrayList<>();
         String json = prefs.getString(classPref, "");
         Map<String,?> keys = prefs.getAll();
 
@@ -142,4 +140,10 @@ public class ClassListActivity extends AppCompatActivity
 
     }
 
+    private String SerializeClass(GradedClass gradedClass)
+    {
+        Gson gson = new Gson();
+
+        return gson.toJson(gradedClass);
+    }
 }

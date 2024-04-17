@@ -5,19 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 // This will list all the students in a given class
 public class ClassRosterActivity extends AppCompatActivity implements View.OnClickListener
@@ -26,11 +22,13 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
 
     String className;
     ListView listView;
-    TextView classRosterTxt;
+    TextView classRosterTitleTxt;
     Button addExam;
     Button gradeExams;
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
+
+    public  static  String classRosterExtra = "SerializedGradedClass";
 
     public ClassRosterActivity()
     {
@@ -42,40 +40,42 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_class_roster);
 
         listView = (ListView) findViewById(R.id.studentListView);
-        classRosterTxt = (TextView) findViewById(R.id.classRosterNameTxt);
+        classRosterTitleTxt = (TextView) findViewById(R.id.classRosterTitleTxt);
         addExam = (Button) findViewById(R.id.buttonAdd);
         gradeExams = (Button) findViewById(R.id.buttonGrade);
 
         Bundle bundle = getIntent().getExtras();
 
-        if(getIntent().getStringExtra("className") != null)
+        String extra = bundle.getString(classRosterExtra);
+
+        if(extra != null)
         {
-            className = getIntent().getStringExtra("className");
-            Log.d("map values", className);
+            Gson gson = new Gson();
+            gradedClass = gson.fromJson(extra, GradedClass.class);
         }
+
         addExam.setOnClickListener(this);
         gradeExams.setOnClickListener(this);
+
         DisplayClass();
     }
 
     public void DisplayClass()
     {
-        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> students = new ArrayList<String>();
         ArrayList<String> ids = new ArrayList<String>();
 
-        classRosterTxt.setText(className);
-        prefs = getSharedPreferences(className, MODE_APPEND);
-        Map<String,?> keys = prefs.getAll();
+        gradedClass.students.forEach(student ->
+        {
+            students.add(student.name);
+            ids.add(student.Id);
+        });
 
-        for(Map.Entry<String,?> entry : keys.entrySet()){
-            Log.d("Students",entry.getKey() + ": " + entry.getValue().toString());
-            names.add(entry.getKey().toString());
-            ids.add(entry.getValue().toString());
-        }
-        QRListAdapter adapter_ = new QRListAdapter(getApplicationContext(), names, ids);
+        classRosterTitleTxt.setText(gradedClass.className);
+
+        QRListAdapter adapter_ = new QRListAdapter(getApplicationContext(), students, ids);
 
         listView.setAdapter(adapter_);
-
     }
 
     @Override

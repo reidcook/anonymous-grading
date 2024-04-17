@@ -6,33 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ClassRosterActivity">
 
-    <TextView
-        android:id="@+id/classRosterTxt"
-        android:layout_width="195dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="16dp"
-        android:autoSizeTextType="uniform"
-        android:text="Class Roster"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ListView
         android:id="@+id/studentListView"
-        android:layout_width="394dp"
-        android:layout_height="557dp"
+        android:layout_width="386dp"
+        android:layout_height="517dp"
+        android:layout_marginBottom="110dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classRosterTxt"
-        app:layout_constraintVertical_bias="0.762" />
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/classRosterNameTxt"
-        android:layout_width="294dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="92dp"
+        android:id="@+id/classRosterTitleTxt"
+        android:layout_width="273dp"
+        android:layout_height="50dp"
         android:autoSizeTextType="uniform"
         android:text="Class Name"
         android:textAlignment="center"
@@ -41,30 +28,30 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.521" />
 
     <Button
         android:id="@+id/buttonAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="Add Exam"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintEnd_toStartOf="@+id/buttonGrade"
+        app:layout_constraintHorizontal_bias="0.171"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.098" />
+        app:layout_constraintVertical_bias="0.953" />
 
     <Button
         android:id="@+id/buttonGrade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="Grade Exams"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.098" />
+        app:layout_constraintTop_toBottomOf="@+id/studentListView"
+        app:layout_constraintVertical_bias="0.446" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

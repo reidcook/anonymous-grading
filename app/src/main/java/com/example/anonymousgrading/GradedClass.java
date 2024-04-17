@@ -69,7 +69,7 @@ public class GradedClass
         students.add(student);
     }
 
-    public void AddStudents(URI csvFile)
+    public void GetStudent(URI csvFile)
     {
         /// parse csv, and add names
         // csv has been parsed, and students have been
