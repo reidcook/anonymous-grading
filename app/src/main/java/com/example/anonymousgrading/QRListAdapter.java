@@ -50,12 +50,12 @@ public class QRListAdapter extends BaseAdapter {
         TextView text = (TextView) convertView.findViewById(R.id.studentInfoTxt);
         ImageView qrCode = (ImageView) convertView.findViewById(R.id.imageView2);
         text.setText(names.get(position));
-        MultiFormatWriter mWriter = new MultiFormatWriter();
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
-            BitMatrix mMatrix = mWriter.encode(ids.get(position), BarcodeFormat.CODE_39, 600, 300);
-            BarcodeEncoder mEncoder = new BarcodeEncoder();
-            Bitmap mBitmap = mEncoder.createBitmap(mMatrix);
-            qrCode.setImageBitmap(mBitmap);
+            BitMatrix bitMatrix = multiFormatWriter.encode(ids.get(position), BarcodeFormat.CODE_39, 600, 300);
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+            qrCode.setImageBitmap(bitmap);
         } catch (WriterException e) {
                 e.printStackTrace();
         }

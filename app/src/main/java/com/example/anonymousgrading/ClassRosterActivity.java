@@ -114,6 +114,7 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
             if(qrResult != null){
                 // qrResult holds the qr code result which should be user id
                 qrResultText.setText(qrResult);
+                String studentGrade = qrResult + " A";
             }
         }
     }
