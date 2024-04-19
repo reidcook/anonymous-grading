@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -27,7 +26,9 @@ public class ClassListActivity extends AppCompatActivity implements View.OnClick
     ListView listView;
 
     Button newCourseBtn;
-    private SharedPreferences prefs;
+
+
+    public static  String newClassExtra = "newClassExtra";
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -37,16 +38,39 @@ public class ClassListActivity extends AppCompatActivity implements View.OnClick
         listView = (ListView) findViewById(R.id.classListView);
         newCourseBtn = (Button) findViewById(R.id.newCourseBtn);
 
-        GetSavedJson();
+        gradedClasses = GradedClass.GetSavedJson(getApplicationContext());
+
+        Bundle bundle = getIntent().getExtras();
+        // if we are opening this activty with a new class, we use this
+        if(bundle != null)
+        {
+            String extra = bundle.getString(newClassExtra);
+
+            if(extra != null)
+            {
+                Gson gson = new Gson();
+                GradedClass cl = gson.fromJson(extra, GradedClass.class);
+
+                gradedClasses.add(cl);
+
+                GradedClass.SaveClasses(getApplicationContext(), gradedClasses);
+            }
+        }
 
         newCourseBtn.setOnClickListener(this);
 
-        if(gradedClasses.size() == 0)
-        {
-            gradedClasses = GradedClass.GenerateXClasses(5, 5);
-            SaveClasses();
-        }
+//        for testing purposes only
+//        if(gradedClasses.size() == 0)
+//        {
+//            gradedClasses = GradedClass.GenerateXClasses(5, 5);
+//            SaveClasses();
+//        }
 
+       DisplayClasses();
+    }
+
+    private  void DisplayClasses()
+    {
         ArrayList<String> names = new ArrayList<>();
 
         for (GradedClass gc: gradedClasses)
@@ -66,82 +90,11 @@ public class ClassListActivity extends AppCompatActivity implements View.OnClick
 
                 GradedClass gClass = gradedClasses.get(position);
 
-                String json = SerializeClass(gClass);
+                String json = GradedClass.SerializeClass(gClass);
                 classIntent.putExtra(ClassRosterActivity.classRosterExtra, json);
                 startActivity(classIntent);
             }
         });
-    }
-
-    public static String classPref = "Classes";
-    private void SaveClasses()
-    {
-        // Saves the Graded class list.
-        // This is done by serialzing the gradedclass list into a string and saving said string
-        SharedPreferences mPrefs = getSharedPreferences(classPref, MODE_PRIVATE);
-        SharedPreferences.Editor editor = mPrefs.edit();
-        Gson gson = new Gson();
-
-        String json = "";
-        String ms = "";
-
-        try
-        {
-            json =  gson.toJson(gradedClasses).toString();
-        }
-        catch(Exception e)
-        {
-            ms = e.getMessage();
-            Log.d("Error", e.getMessage());
-        }
-
-        editor.remove(classPref).commit();
-        editor.putString(classPref, json);
-        editor.commit();
-
-    }
-    private void GetSavedJson()
-    {
-        // we get from shared pref a json which is a list of graded classes
-        prefs = getSharedPreferences(classPref, MODE_PRIVATE);
-
-        Gson gson = new Gson();
-        String json = prefs.getString(classPref, "");
-        Map<String,?> keys = prefs.getAll();
-
-        if(json == "")
-        {
-            gradedClasses =  new ArrayList<>();
-        }
-        else
-        {
-            gradedClasses = DeserializeClassList(json);
-        }
-
-    }
-    public static String SerializeClass(GradedClass gradedClass)
-    {
-        Gson gson = new Gson();
-        return gson.toJson(gradedClass);
-    }
-    public static String SerializeClass(ArrayList<GradedClass> gradedClasses)
-    {
-        Gson gson = new Gson();
-        return gson.toJson(gradedClasses);
-    }
-    public static GradedClass DeserializeClass(String gradedClassJson)
-    {
-        Gson gson = new Gson();
-        return gson.fromJson(gradedClassJson, GradedClass.class);
-    }
-    public static ArrayList<GradedClass> DeserializeClassList(String classListJson)
-    {
-        Gson gson = new Gson();
-        ArrayList<GradedClass> gradedClasses = new ArrayList<>();
-        Type type = new TypeToken<ArrayList<GradedClass>>() {}.getType();
-        gradedClasses = gson.fromJson(classListJson, type);
-
-        return gradedClasses;
     }
 
     @Override
@@ -152,5 +105,16 @@ public class ClassListActivity extends AppCompatActivity implements View.OnClick
             Intent myIntent = new Intent(ClassListActivity.this, AddCourseActivity.class);
             startActivity(myIntent);
         }
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        gradedClasses = GradedClass.GetSavedJson(getApplicationContext());
+
+        DisplayClasses();
+
     }
 }

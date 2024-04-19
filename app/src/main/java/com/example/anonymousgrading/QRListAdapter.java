@@ -16,7 +16,6 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class QRListAdapter extends BaseAdapter {
     private ArrayList<String> names;
@@ -48,7 +47,7 @@ public class QRListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = layoutInflater.inflate(R.layout.list_layout, null);
-        TextView text = (TextView) convertView.findViewById(R.id.textView3);
+        TextView text = (TextView) convertView.findViewById(R.id.studentInfoTxt);
         ImageView qrCode = (ImageView) convertView.findViewById(R.id.imageView2);
         text.setText(names.get(position));
         MultiFormatWriter mWriter = new MultiFormatWriter();

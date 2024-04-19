@@ -63,18 +63,18 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
 
     public void DisplayClass()
     {
-        ArrayList<String> students = new ArrayList<String>();
+        ArrayList<String> studentInfo = new ArrayList<String>();
         ArrayList<String> ids = new ArrayList<String>();
 
         gradedClass.students.forEach(student ->
         {
-            students.add(student.name);
+            studentInfo.add(student.GetStudentInfo());
             ids.add(student.Id);
         });
 
         classRosterTitleTxt.setText(gradedClass.className);
 
-        QRListAdapter adapter_ = new QRListAdapter(getApplicationContext(), students, ids);
+        QRListAdapter adapter_ = new QRListAdapter(getApplicationContext(), studentInfo, ids);
 
         listView.setAdapter(adapter_);
     }
@@ -92,5 +92,12 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
             Intent myIntent = new Intent(ClassRosterActivity.this, AddExam.class);
             startActivity(myIntent);
         }
+    }
+
+    @Override
+    protected  void onPause()
+    {
+        super.onPause();
+
     }
 }

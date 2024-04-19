@@ -39,8 +39,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Intent myIntent = new Intent(LoginActivity.this, ClassListActivity.class);
             String user = username.getText().toString();
             String pass = password.getText().toString();
-            myIntent.putExtra("user", user);
-            myIntent.putExtra("pass", pass);
+//            myIntent.putExtra("user", user);
+//            myIntent.putExtra("pass", pass);
             startActivity(myIntent);
         } else if (v.getId() == R.id.buttonRegister)
         {

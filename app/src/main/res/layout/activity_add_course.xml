@@ -41,8 +41,8 @@
         android:autoSizeTextType="uniform"
         android:backgroundTint="#F4EFEF"
         android:ems="10"
+        android:hint="Enter Course Name"
         android:inputType="text"
-        android:text="Course Name"
         android:textAlignment="textStart"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,16 +69,15 @@
 
     <Button
         android:id="@+id/finishAddCourseBtn"
-        android:layout_width="135dp"
-        android:layout_height="52dp"
-        android:layout_marginBottom="356dp"
+        android:layout_width="165dp"
+        android:layout_height="64dp"
         android:text="Add Course"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.365"
+        app:layout_constraintHorizontal_bias="0.41"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.562" />
 
     <Button
         android:id="@+id/uploadRosterBtn"
@@ -89,4 +88,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/uploadResultTxt"
+        android:layout_width="230dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="426dp"
+        android:autoSizeTextType="uniform"
+        android:autoText="false"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.878"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uploadRosterBtn"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/addCourseErrorText"
+        android:layout_width="231dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="4dp"
+        android:autoSizeTextType="uniform"
+        android:autoText="false"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.383"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/finishAddCourseBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

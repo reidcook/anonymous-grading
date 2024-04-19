@@ -37,9 +37,9 @@
             android:exported="false" >
 
             <intent-filter>
-                <action android:name="android.intent.action.GET_CONTENT" />
+                <action android:name="android.intent.action.OPEN_DOCUMENT" />
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.APP_FILES" />
                 <category android:name="android.intent.category.OPENABLE" />
 
                 <data android:mimeType="*/*" />

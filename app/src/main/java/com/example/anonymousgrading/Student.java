@@ -1,14 +1,23 @@
 package com.example.anonymousgrading;
 
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 
 import com.opencsv.CSVReader;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Student
@@ -24,28 +33,38 @@ public class Student
         this.Id = id;
     }
 
-    public static ArrayList<Student> GetStudents(Uri fileName)
+    public String GetStudentInfo()
     {
-        // I will assume the format is name,id
-        ArrayList<Student> students = new ArrayList<>();
+        String str = "";
 
-        try
-        {
-            CSVReader reader = new CSVReader(new FileReader(fileName.toString()));
-            String[] nextLine;
-            Student newStudent;
+        str += name + "\n";
+        str += "Id: " + Id.trim();
 
-            while ((nextLine = reader.readNext()) != null)
-            {
-                newStudent = new Student(nextLine[0], nextLine[1]);
-                students.add(newStudent);
-            }
-        }
-        catch (Exception e)
-        {
-            Log.d("Error", "Error reading file");
-        }
-
-        return  students;
+        return str;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass())
+        {
+            return false;
+        }
+
+        Student other = (Student) obj;
+
+        boolean sameName = name.equals(other.name);
+        boolean sameID = Id.equals(other.Id);
+
+        boolean sameCode = Arrays.equals(barcode, other.barcode);
+
+        // dont compare grade because we might modify the grade when grading the exam
+        return (sameName && sameID && sameCode);
+    }
+
 }

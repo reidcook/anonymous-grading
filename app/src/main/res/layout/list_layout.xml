@@ -4,12 +4,12 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/studentInfoTxt"
         android:layout_width="282dp"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
         android:layout_weight="1"
-        android:text="TextView"
+        android:paddingBottom="20dp"
+        android:text="Name"
         android:textSize="48sp" />
 
 
@@ -18,4 +18,5 @@
         android:layout_width="187dp"
         android:layout_height="64dp"
         android:layout_weight="1" />
+
 </LinearLayout>
