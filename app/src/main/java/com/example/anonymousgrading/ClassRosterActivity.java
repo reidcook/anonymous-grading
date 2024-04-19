@@ -1,5 +1,6 @@
 package com.example.anonymousgrading;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
@@ -23,6 +25,7 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
     String className;
     ListView listView;
     TextView classRosterTitleTxt;
+    TextView qrResultText;
     Button addExam;
     Button gradeExams;
     private SharedPreferences prefs;
@@ -44,6 +47,7 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
         classRosterTitleTxt = (TextView) findViewById(R.id.classRosterTitleTxt);
         addExam = (Button) findViewById(R.id.buttonAdd);
         gradeExams = (Button) findViewById(R.id.buttonGrade);
+        qrResultText = (TextView) findViewById(R.id.textViewQRResult);
 
         Bundle bundle = getIntent().getExtras();
 
@@ -99,5 +103,18 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
     {
         super.onPause();
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(intentResult != null){
+            String qrResult = intentResult.getContents();
+            if(qrResult != null){
+                // qrResult holds the qr code result which should be user id
+                qrResultText.setText(qrResult);
+            }
+        }
     }
 }
