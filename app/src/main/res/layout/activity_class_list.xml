@@ -20,8 +20,8 @@
 
     <ListView
         android:id="@+id/classListView"
-        android:layout_width="393dp"
-        android:layout_height="540dp"
+        android:layout_width="257dp"
+        android:layout_height="533dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,9 +32,9 @@
         android:id="@+id/newCourseBtn"
         android:layout_width="146dp"
         android:layout_height="56dp"
-        android:layout_marginStart="132dp"
         android:text="Add Course"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/classListView"
         app:layout_constraintVertical_bias="0.483" />
