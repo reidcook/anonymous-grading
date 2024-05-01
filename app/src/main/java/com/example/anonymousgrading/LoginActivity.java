@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.amplifyframework.core.Amplify;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener
 {
 
@@ -41,6 +43,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String pass = password.getText().toString();
 //            myIntent.putExtra("user", user);
 //            myIntent.putExtra("pass", pass);
+            Amplify.Auth.signIn(user, pass,
+                    result -> Log.i("Amplify Login", result.toString()),
+                    error -> Log.e("Amplify Login", error.toString()));
+            Amplify.Auth.fetchAuthSession(
+                    result -> Log.i("Amplify Session", "Result: " + result.toString()),
+                    error -> Log.e("Amplify Session", "Error: " + error.toString())
+            );
+            Amplify.Auth.signOut(
+                    result -> Log.i("Amplify Logout", result.toString())
+            );
             startActivity(myIntent);
         } else if (v.getId() == R.id.buttonRegister)
         {

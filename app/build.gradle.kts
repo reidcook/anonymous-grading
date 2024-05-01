@@ -28,6 +28,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true
     }
     buildFeatures {
         viewBinding = true
@@ -50,4 +51,7 @@ dependencies {
     implementation("com.journeyapps:zxing-android-embedded:4.1.0")
     implementation ("com.google.code.gson:gson:2.8.9")
     implementation ("com.opencsv:opencsv:5.7.1")
+    implementation("com.amplifyframework:core:1.6.2")
+    implementation("com.amplifyframework:aws-auth-cognito:2.16.0")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }
