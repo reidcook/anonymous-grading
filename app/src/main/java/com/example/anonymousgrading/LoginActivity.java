@@ -39,14 +39,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Amplify.Auth.signOut(
                 result -> Log.i("Amplify Logout", result.toString())
         );
-        /* makes new student in database
+        //makes new student in database
         StudentAWS studentaws = StudentAWS.builder()
                 .name("reid")
                 .studentId("123456")
-                .professor("mr. prof")
-                .barcode("barcide")
-                .exam("no exam")
-                .grade("No grade")
+                .professor("mr prof")
+                .exam("exam")
+                .barcode("barcode")
+                .grade("bad grade")
+                .classname("class")
                 .build();
         Amplify.API.mutate(
                 ModelMutation.create(studentaws),
@@ -62,7 +63,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 },
                 error -> Log.e("GraphQL", "error: " + error)
         );
-         */
     }
 
     @Override

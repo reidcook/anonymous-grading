@@ -32,6 +32,7 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
     String className;
     String primaryKey;
     String tempStudentId;
+    String tempClass;
     String tempName;
     String tempProfessor;
     String tempBarcode;
@@ -136,6 +137,7 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
                                 tempExam = tempStudent.getExam();
                                 tempProfessor = tempStudent.getProfessor();
                                 tempStudentId = tempStudent.getStudentId();
+                                tempClass = tempStudent.getClassname();
                                 Log.i("GraphQL", "response: " + tempStudent.getName());
                                 Random rand = new Random();
                                 int randGrade = rand.nextInt(101);
@@ -144,9 +146,10 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
                                         .name(tempName)
                                         .studentId(tempStudentId)
                                         .professor(tempProfessor)
-                                        .barcode(tempBarcode)
                                         .exam(tempExam)
+                                        .barcode(tempBarcode)
                                         .grade(randGradeString)
+                                        .classname(tempClass)
                                         .id(primaryKey)
                                         .build();
                                 Amplify.API.mutate(
