@@ -6,16 +6,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.StudentAWS;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
 
 // This will list all the students in a given class
 public class ClassRosterActivity extends AppCompatActivity implements View.OnClickListener
@@ -23,9 +30,14 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
     GradedClass gradedClass;
 
     String className;
+    String primaryKey;
+    String tempStudentId;
+    String tempName;
+    String tempProfessor;
+    String tempBarcode;
+    String tempExam;
     ListView listView;
     TextView classRosterTitleTxt;
-    TextView qrResultText;
     Button addExam;
     Button gradeExams;
     private SharedPreferences prefs;
@@ -47,7 +59,6 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
         classRosterTitleTxt = (TextView) findViewById(R.id.classRosterTitleTxt);
         addExam = (Button) findViewById(R.id.buttonAdd);
         gradeExams = (Button) findViewById(R.id.buttonGrade);
-        qrResultText = (TextView) findViewById(R.id.textViewQRResult);
 
         Bundle bundle = getIntent().getExtras();
 
@@ -113,8 +124,60 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
             String qrResult = intentResult.getContents();
             if(qrResult != null){
                 // qrResult holds the qr code result which should be user id
-                qrResultText.setText(qrResult);
+                //qrResultText.setText(qrResult);
                 String studentGrade = qrResult + " A";
+                Amplify.API.query(
+                        ModelQuery.list(StudentAWS.class, StudentAWS.STUDENT_ID.contains(qrResult)),
+                        response ->{
+                            for(StudentAWS tempStudent : response.getData()){
+                                primaryKey = tempStudent.getId();
+                                tempName = tempStudent.getName();
+                                tempBarcode = tempStudent.getBarcode();
+                                tempExam = tempStudent.getExam();
+                                tempProfessor = tempStudent.getProfessor();
+                                tempStudentId = tempStudent.getStudentId();
+                                Log.i("GraphQL", "response: " + tempStudent.getName());
+                                Random rand = new Random();
+                                int randGrade = rand.nextInt(101);
+                                String randGradeString = String.valueOf(randGrade);
+                                StudentAWS tempStu = StudentAWS.builder()
+                                        .name(tempName)
+                                        .studentId(tempStudentId)
+                                        .professor(tempProfessor)
+                                        .barcode(tempBarcode)
+                                        .exam(tempExam)
+                                        .grade(randGradeString)
+                                        .id(primaryKey)
+                                        .build();
+                                Amplify.API.mutate(
+                                        ModelMutation.update(tempStu),
+                                        response2 -> Log.i("GraphQL Update", "response: " + response2),
+                                        error -> Log.e("GraphQL Update", "Error: " + error)
+                                );
+                            }
+                        },
+                        error -> Log.e("GraphQL", "error: " + error)
+                );
+                Log.i("tempName", "ttemp name is " + tempName);
+                /*
+                Random rand = new Random();
+                int randGrade = rand.nextInt(101);
+                String randGradeString = String.valueOf(randGrade);
+                StudentAWS tempStu = StudentAWS.builder()
+                        .name(tempName)
+                        .studentId(tempStudentId)
+                        .professor(tempProfessor)
+                        .barcode(tempBarcode)
+                        .exam(tempExam)
+                        .grade("65")
+                        .id(primaryKey)
+                        .build();
+                Amplify.API.mutate(
+                        ModelMutation.update(tempStu),
+                        response -> Log.i("GraphQL Update", "response: " + response),
+                        error -> Log.e("GraphQL Update", "Error: " + error)
+                );
+                 */
             }
         }
     }
