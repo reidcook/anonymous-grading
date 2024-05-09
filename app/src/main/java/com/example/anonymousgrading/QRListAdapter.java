@@ -2,6 +2,7 @@ package com.example.anonymousgrading;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class QRListAdapter extends BaseAdapter {
@@ -55,7 +57,6 @@ public class QRListAdapter extends BaseAdapter {
             BitMatrix bitMatrix = multiFormatWriter.encode(ids.get(position), BarcodeFormat.CODE_39, 600, 300);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-            qrCode.setImageBitmap(bitmap);
         } catch (WriterException e) {
                 e.printStackTrace();
         }

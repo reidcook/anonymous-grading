@@ -5,16 +5,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.CoursesAWS;
+import com.amplifyframework.datastore.generated.model.StudentAWS;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
+
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +53,8 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
     GradedClass newClass;
 
     ArrayList<Student> students;
+    Student currStu;
+    int i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -101,6 +118,65 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
 //            myIntent.putExtra(ClassListActivity.newClassExtra, data);
 //
 //            startActivity(myIntent);
+
+            // CODE WITH DATABASE
+            // saves prof name and course name into CoursesAWS
+            Amplify.Auth.fetchUserAttributes(
+                    success -> {
+                        CoursesAWS coursesaws = CoursesAWS.builder().coursename(name).professor(success.get(0).getValue().toString())
+                                .build();
+                        Amplify.API.mutate(
+                                ModelMutation.create(coursesaws),
+                                response -> Log.i("GraphQL", "response: " + response),
+                                error1 -> Log.e("GraphQL", "error: " + error1)
+                        );
+                    },
+                    error2 -> {
+                        Log.e("UserAuth", "error " + error2);
+                    }
+            );
+            // saves student names, ids, classname, and professor into StudentAWS table
+            for(Student student: students) {
+                MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+                String temp = "";
+                try {
+                    BitMatrix bitMatrix = multiFormatWriter.encode(StringUtils.chop(student.Id), BarcodeFormat.CODE_39, 600, 300);
+                    BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                    Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+                    ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+                    byte [] b=baos.toByteArray();
+                    temp = Base64.encodeToString(b, Base64.DEFAULT);
+                } catch (WriterException e) {
+                    e.printStackTrace();
+                }
+                student.barcode = temp;
+                Log.i("string test", temp);
+            }
+            for (Student student: students) {
+                    Amplify.Auth.fetchUserAttributes(
+                            success -> {
+                                Log.i("UserAuth", "i index: " + students.size());
+                                StudentAWS studentaws = StudentAWS.builder()
+                                        .name(student.name.substring(1))
+                                        .studentId(StringUtils.chop(student.Id))
+                                        .professor(success.get(0).getValue().toString())
+                                        .exam("")
+                                        .barcode(student.barcode)
+                                        .grade("")
+                                        .classname(name)
+                                        .build();
+                                Amplify.API.mutate(
+                                        ModelMutation.create(studentaws),
+                                        response -> Log.i("GraphQL", "response: " + response),
+                                        error1 -> Log.e("GraphQL", "error: " + error1)
+                                );
+                            },
+                            error2 -> {
+                                Log.e("UserAuth", "error " + error2);
+                            }
+                    );
+            }
             finish();
         }
         else if (v.getId() == R.id.uploadRosterBtn)

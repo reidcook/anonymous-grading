@@ -24,7 +24,7 @@ public class Student
 {
     String name;
     String Id;
-    int[] barcode;
+    String barcode;
     String grade;
 
     public Student(String name, String id)
@@ -61,10 +61,10 @@ public class Student
         boolean sameName = name.equals(other.name);
         boolean sameID = Id.equals(other.Id);
 
-        boolean sameCode = Arrays.equals(barcode, other.barcode);
+        //boolean sameCode = Arrays.equals(barcode, other.barcode);
 
         // dont compare grade because we might modify the grade when grading the exam
-        return (sameName && sameID && sameCode);
+        return (sameName && sameID);
     }
 
 }

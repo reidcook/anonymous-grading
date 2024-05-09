@@ -10,10 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.amplifyframework.api.graphql.model.ModelMutation;
-import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
-import com.amplifyframework.datastore.generated.model.StudentAWS;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener
 {
@@ -40,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 result -> Log.i("Amplify Logout", result.toString())
         );
         //makes new student in database
+        /*
         StudentAWS studentaws = StudentAWS.builder()
                 .name("reid")
                 .studentId("123456")
@@ -63,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 },
                 error -> Log.e("GraphQL", "error: " + error)
         );
+        */
     }
 
     @Override
@@ -90,6 +94,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         result -> Log.i("Amplify Session", "Result: " + result.toString()),
                         error -> Log.e("Amplify Session", "Error: " + error.toString())
                 );
+                Log.i("email test", "emal: "+failed.getText().toString());
             }
             catch (Exception e){
                 e.printStackTrace();
