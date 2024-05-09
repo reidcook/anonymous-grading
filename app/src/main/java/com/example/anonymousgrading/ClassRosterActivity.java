@@ -128,7 +128,7 @@ public class ClassRosterActivity extends AppCompatActivity implements View.OnCli
                 //qrResultText.setText(qrResult);
                 String studentGrade = qrResult + " A";
                 Amplify.API.query(
-                        ModelQuery.list(StudentAWS.class, StudentAWS.STUDENT_ID.contains(qrResult)),
+                        ModelQuery.list(StudentAWS.class, StudentAWS.STUDENT_ID.contains(qrResult).and(StudentAWS.CLASSNAME.contains(gradedClass.className))),
                         response ->{
                             for(StudentAWS tempStudent : response.getData()){
                                 primaryKey = tempStudent.getId();

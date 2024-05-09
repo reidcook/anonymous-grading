@@ -57,6 +57,7 @@ public class QRListAdapter extends BaseAdapter {
             BitMatrix bitMatrix = multiFormatWriter.encode(ids.get(position), BarcodeFormat.CODE_39, 600, 300);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+            qrCode.setImageBitmap(bitmap);
         } catch (WriterException e) {
                 e.printStackTrace();
         }
