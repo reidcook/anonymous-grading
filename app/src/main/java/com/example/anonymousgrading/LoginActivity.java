@@ -12,17 +12,12 @@ import android.widget.TextView;
 
 import com.amplifyframework.core.Amplify;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicReference;
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener
 {
 
     private EditText username;
     private EditText password;
-    private TextView failed;
+    private TextView failedTxtInput;
     private Button submitButton;
     private Button registerButton;
 
@@ -32,7 +27,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         username = (EditText) findViewById(R.id.editTextUsername);
-        failed = (TextView) findViewById(R.id.textViewFailed);
+        failedTxtInput = (TextView) findViewById(R.id.textViewFailed);
         submitButton = (Button) findViewById(R.id.buttonLogin);
         password = (EditText) findViewById(R.id.editTextPassword);
         registerButton = (Button) findViewById(R.id.buttonRegister);
@@ -77,6 +72,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Intent myIntent = new Intent(LoginActivity.this, ClassListActivity.class);
             String user = username.getText().toString();
             String pass = password.getText().toString();
+            AuthState(0);
+
 //            myIntent.putExtra("user", user);
 //            myIntent.putExtra("pass", pass);
             final boolean[] state = {false};
@@ -88,21 +85,48 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         },
                         error -> {
                             Log.e("Amplify Login", error.toString());
+                            AuthState(2);
                             state[0] = true;
                         });
+
                 Amplify.Auth.fetchAuthSession(
                         result -> Log.i("Amplify Session", "Result: " + result.toString()),
-                        error -> Log.e("Amplify Session", "Error: " + error.toString())
+                        error ->
+                        {
+                            Log.e("Amplify Session", "Error: " + error.toString());
+                            AuthState(2);
+                            state[0] = true;
+                        }
                 );
-                Log.i("email test", "emal: "+failed.getText().toString());
             }
-            catch (Exception e){
-                e.printStackTrace();
+            catch (Exception e)
+            {
+                AuthState(2);
             }
         } else if (v.getId() == R.id.buttonRegister)
         {
             Intent myIntent = new Intent(LoginActivity.this, registration.class);
             startActivity(myIntent);
         }
+    }
+
+    void AuthState(int type)
+    {
+        // 0 = good
+        // else = bad
+
+        runOnUiThread(() -> {
+            String msg;
+            if (type == 0)
+            {
+                msg = "";
+            }
+            {
+                msg = "Authentication Failed. Check Inputs";
+            }
+
+            failedTxtInput.setText(msg);
+            failedTxtInput.setVisibility(View.VISIBLE);
+        });
     }
 }

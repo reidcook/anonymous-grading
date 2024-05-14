@@ -158,7 +158,7 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
                             success -> {
                                 Log.i("UserAuth", "i index: " + students.size());
                                 StudentAWS studentaws = StudentAWS.builder()
-                                        .name(student.name.substring(1))
+                                        .name(student.name)
                                         .studentId(StringUtils.chop(student.Id))
                                         .professor(success.get(0).getValue().toString())
                                         .exam("")

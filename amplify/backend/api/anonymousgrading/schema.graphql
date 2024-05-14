@@ -1,0 +1,17 @@
+type CoursesAWS @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  coursename: String!
+  professor: String!
+}
+
+type StudentAWS @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  student_id: String!
+  professor: String!
+  exam: String!
+  barcode: String!
+  grade: String!
+  classname: String!
+}
+ 

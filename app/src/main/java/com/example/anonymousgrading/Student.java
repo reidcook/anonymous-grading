@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 
+import com.amplifyframework.datastore.generated.model.StudentAWS;
 import com.opencsv.CSVReader;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +42,16 @@ public class Student
         str += "Id: " + Id.trim();
 
         return str;
+    }
+
+    public static Student CreateStudent(StudentAWS s)
+    {
+        Student stud = new Student(s.getName(), s.getStudentId());
+
+        stud.barcode = s.getBarcode();
+        stud.grade = s.getGrade();
+
+        return  stud;
     }
 
     @Override

@@ -19,6 +19,7 @@ import java.util.Objects;
 public class GradedClass
 {
     String className;
+    public String professor;
     public ArrayList<Student> students = new ArrayList<>();
 
     public GradedClass(String className)
